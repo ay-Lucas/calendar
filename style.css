@@ -1,0 +1,28 @@
+body {
+    font-family: 'Oxygen', sans-serif;
+    font-size: 12px;
+    width: 100%;
+    margin: 0;
+}
+
+.container {
+    /*width: 100%;*/
+    /*justify-content: center;*/
+}
+
+#weekdays {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: dimgrey;
+}
+
+#weekdays div {
+    color: white;
+    flex-direction: row;
+    align-items: center;
+    font-size: 1.5em;
+    /*flex: 100px;*/
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
