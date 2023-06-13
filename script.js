@@ -1,10 +1,18 @@
 // const calendar = document.createElement("calendar");
 const NUM_OF_BOXES = 42;
 const calendar = document.getElementById("calendar");
-loadCalendar();
+const nextMonthButton = document.getElementById("next");
+const previousMonthButton = document.getElementById("previous");
+let month = 0;
+let date = new Date();
+loadCalendar(date);
 
-function loadCalendar() {
-  let date = getMonth();
+function loadCalendar(date) {
+  // let date = getMonth();
+  // let date = Date;
+  if (calendar.innerHTML !== null) {
+    calendar.innerHTML = "";
+  }
   let firstDay = new Date(date.getFullYear(), date.getMonth()).getDay();
   let thisMonthDayCount = new Date(
     date.getFullYear(),
@@ -40,7 +48,7 @@ function loadCalendar() {
   let year = date.getFullYear();
   let h1 = document.getElementById("month");
 
-  h1.innerHTML = month +" "+ year;
+  h1.innerHTML = month + " " + year;
   console.log(firstDay);
   console.log(thisMonthDayCount);
 }
@@ -48,3 +56,18 @@ function loadCalendar() {
 function getMonth() {
   return new Date();
 }
+
+nextMonthButton.addEventListener("click", function (event) {
+  month += 1;
+  let date = new Date();
+  let nextMonth = new Date(date.getFullYear(), date.getMonth() + month);
+  console.log(nextMonth);
+  loadCalendar(nextMonth);
+});
+previousMonthButton.addEventListener("click", function (event) {
+  month -= 1;
+  let date = new Date();
+  let previousMonth = new Date(date.getFullYear(), date.getMonth() + month);
+  console.log(previousMonth);
+  loadCalendar(previousMonth);
+});

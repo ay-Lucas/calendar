@@ -1,14 +1,17 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-          name="viewport">
-    <meta content="ie=edge" http-equiv="X-UA-Compatible">
-    <link href="style.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com" rel="preconnect">
-    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400&display=swap" rel="stylesheet">
+    <meta charset="UTF-8"/>
+    <meta
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+            name="viewport"
+    />
+    <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+    <link href="style.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+          rel="stylesheet">
     <title>Calendar</title>
 </head>
 <body>
@@ -16,8 +19,13 @@
     <section id="top">
         <h1 id="month"></h1>
         <div class="nav">
-            <button id="previous">Previous</button>
-            <button id="next">Next</button>
+            <button aria-label="previous month" id="previous" type="button">
+                <span class="material-icons-outlined" id="chevron_left"> chevron_left
+                </span>
+            </button>
+            <button aria-label="next month" id="next" type="button">
+                <span class="material-icons-outlined" id="chevron_right"> chevron_right </span>
+            </button>
         </div>
     </section>
     <div class="grid">
@@ -30,8 +38,7 @@
             <div>Fri</div>
             <div>Sat</div>
         </div>
-        <div id="calendar">
-        </div>
+        <div id="calendar"></div>
     </div>
 </div>
 </body>

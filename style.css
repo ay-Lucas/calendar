@@ -11,33 +11,37 @@ body {
 	margin: 0;
 }
 
+#top {
+	/*font-size: clamp(1rem, 1vw + 1rem, 3rem);*/
+	text-align: center;
+	margin: 1rem;
+}
+
 h1 {
-    font-size: 1.5em;
-	margin: 1vw auto;
+	font-size: clamp(1rem, 1vw + 1rem, 2rem);
+	/*margin: 1rem;*/
 	color: #e6edf3;
 }
 
-#top {
-	text-align: center;
-	margin: auto;
-	font-size: 1.5em;
+#top button {
+	background-color: rgb(100, 0, 0, 0);
+	border: none;
+	border-radius: 1rem;
+}
+
+#top button span {
+	font-size: 46px;
+	color: #e6edf3;;
+	padding: .5rem;
 }
 
 .nav {
-}
 
-#next,
-#previous {
-	background-color: #e6edf3;
-	color: black;
-	border-width: 2px;
-	border-style: solid;
-	border-radius: 1em;
 }
 
 .grid {
 	position: relative;
-	margin: 1.5vh 7vw;
+	/*margin: */
 }
 
 #weekdays {
@@ -45,8 +49,6 @@ h1 {
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
 	/*border-style: ridge;*/
-	border-color: black;
-	border-width: 1px;
 	/*border-right*/
 	/*background-color: #161b22;*/
 	/*background-color: #262626;*/
@@ -60,10 +62,10 @@ h1 {
 }
 
 #calendar {
-  border-top-style: ridge;
-  border-top-width: 1px;
-  border-top-color: black;
-	height: 75vh;
+	border-top-style: ridge;
+	border-top-width: 1px;
+	border-top-color: black;
+	height: 75dvh;
 	grid-template-columns: repeat(7, 1fr);
 	grid-template-rows: repeat(6, 1fr);
 	display: grid;
@@ -82,7 +84,7 @@ h1 {
 	border-color: black;
 	margin: 0;
 	text-align: center;
-	font-size: 1.5em;
+	font-size: clamp(1rem, 1.25rem, 1.5rem);
 	color: #e6edf3;
 }
 
