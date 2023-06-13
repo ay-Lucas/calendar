@@ -1,28 +1,109 @@
 body {
-    font-family: 'Oxygen', sans-serif;
-    font-size: 12px;
-    width: 100%;
-    margin: 0;
+	font-family: 'Oxygen', sans-serif;
+	font-size: 9px;
+	width: 100%;
+	margin: 0;
+	background-color: #0d1117;
+	position: absolute;
 }
 
 .container {
-    /*width: 100%;*/
-    /*justify-content: center;*/
+	margin: 0;
+}
+
+h1 {
+    font-size: 1.5em;
+	margin: 1vw auto;
+	color: #e6edf3;
+}
+
+#top {
+	text-align: center;
+	margin: auto;
+	font-size: 1.5em;
+}
+
+.nav {
+}
+
+#next,
+#previous {
+	background-color: #e6edf3;
+	color: black;
+	border-width: 2px;
+	border-style: solid;
+	border-radius: 1em;
+}
+
+.grid {
+	position: relative;
+	margin: 1.5vh 7vw;
 }
 
 #weekdays {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    background-color: dimgrey;
+	margin-bottom: 1vw;
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	/*border-style: ridge;*/
+	border-color: black;
+	border-width: 1px;
+	/*border-right*/
+	/*background-color: #161b22;*/
+	/*background-color: #262626;*/
 }
 
 #weekdays div {
-    color: white;
-    flex-direction: row;
-    align-items: center;
-    font-size: 1.5em;
-    /*flex: 100px;*/
-    margin: 0 auto;
-    flex-wrap: wrap;
+	text-align: center;
+
+	color: #e6edf3;
+	font-size: 1.25em;
+}
+
+#calendar {
+  border-top-style: ridge;
+  border-top-width: 1px;
+  border-top-color: black;
+	height: 75vh;
+	grid-template-columns: repeat(7, 1fr);
+	grid-template-rows: repeat(6, 1fr);
+	display: grid;
+	background-color: #161b22;
+}
+
+#padded-square {
+	background-color: #262626;
+}
+
+#calendar div,
+#padded-square {
+	position: relative;
+	border-width: 0;
+	border-bottom-width: 2px;
+	border-color: black;
+	margin: 0;
+	text-align: center;
+	font-size: 1.5em;
+	color: #e6edf3;
+}
+
+#calendar div:nth-of-type(1n) {
+	border-right-width: 1px;
+	border-right-style: ridge;
+	border-right-color: black;
+}
+
+#calendar div:nth-of-type(7n-6) {
+	border-left-color: black;
+	border-left-style: ridge;
+	border-left-width: 1px;
+}
+
+#calendar div:nth-of-type(1n) {
+	border-bottom-color: black;
+	border-bottom-style: ridge;
+	border-bottom-width: 1px;
+}
+
+#calendar div:hover {
+	background-color: rgba(53, 53, 53);
 }
