@@ -3,12 +3,17 @@ body {
 	font-size: 9px;
 	width: 100%;
 	margin: 0;
-	background-color: #0d1117;
+	/*background-color: #0d1117;*/
+	background-attachment: fixed;
+	/*background-color: rgb(16, 16, 16);*/
+	/*background-color: rgba(27, 27, 27, .1);*/
+	background-color: #202124;
+	/*background-image: linear-gradient(to right, #000000 40%, #434343);*/
+);
 	position: absolute;
 }
-
 .container {
-	margin: 0;
+	margin: 4em;
 }
 
 #top {
@@ -20,19 +25,29 @@ body {
 h1 {
 	font-size: clamp(1rem, 1vw + 1rem, 2rem);
 	/*margin: 1rem;*/
-	color: #e6edf3;
+	/*color: #e6edf3;*/
+	color: white;
 }
 
 #top button {
 	background-color: rgb(100, 0, 0, 0);
 	border: none;
-	border-radius: 1rem;
+	border-radius: 50%;
+}
+
+#next, #previous {
 }
 
 #top button span {
+
 	font-size: 46px;
 	color: #e6edf3;;
-	padding: .5rem;
+	/*padding: 1rem;*/
+}
+
+#top button:hover {
+	background: rgba(200, 200, 200, 0.3);
+	/*opacity: 80%;*/
 }
 
 .nav {
@@ -58,7 +73,7 @@ h1 {
 	text-align: center;
 
 	color: #e6edf3;
-	font-size: 1.25em;
+	font-size: 2em;
 }
 
 #calendar {
@@ -69,43 +84,86 @@ h1 {
 	grid-template-columns: repeat(7, 1fr);
 	grid-template-rows: repeat(6, 1fr);
 	display: grid;
-	background-color: #161b22;
+	/*background-color: rgba(107, 208, 255, .8);*/
+	background-color: rgb(16, 16, 16);
+
 }
 
-#padded-square {
+.padded-square-previous, .padded-square-next {
 	background-color: #262626;
 }
 
-#calendar div,
-#padded-square {
+#calendar div {
 	position: relative;
 	border-width: 0;
 	border-bottom-width: 2px;
 	border-color: black;
-	margin: 0;
 	text-align: center;
 	font-size: clamp(1rem, 1.25rem, 1.5rem);
 	color: #e6edf3;
 }
 
-#calendar div:nth-of-type(1n) {
+
+#calendar > div:nth-of-type(1n) {
 	border-right-width: 1px;
 	border-right-style: ridge;
 	border-right-color: black;
 }
 
-#calendar div:nth-of-type(7n-6) {
+#calendar > div:nth-of-type(7n-6) {
 	border-left-color: black;
 	border-left-style: ridge;
 	border-left-width: 1px;
 }
 
-#calendar div:nth-of-type(1n) {
+#calendar > div:nth-of-type(1n) {
 	border-bottom-color: black;
 	border-bottom-style: ridge;
 	border-bottom-width: 1px;
 }
 
-#calendar div:hover {
-	background-color: rgba(53, 53, 53);
+/*#calendar div:hover */
+.padded-square-previous:hover,
+.this-month:hover,
+.padded-square-next:hover {
+	background-color: rgba(53, 53, 53, 20%);
+}
+
+.task {
+	/*display: flex;*/
+	/*position: absolute;*/
+	display: flow;
+	position: relative;
+	height: clamp(0em, 1.25em, 2em);
+	width: 80%;
+	margin: auto;
+	/*width: 10em;*/
+	/*left: 25px;*/
+	border-width: 0;
+	border-radius: .5em;
+	/*border: none;*/
+	border-style: none;
+	background-image: linear-gradient(
+			109.6deg,
+			rgba(156, 252, 248, 1) 11.2%,
+			rgba(110, 123, 251, 1) 91.1%
+	);
+}
+#task-menu{
+	/*display: inline-flex;*/
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	/*-webkit-box-align: center;*/
+	align-items: center;
+	width: 20rem;
+	height: 20rem;
+	background-color: white;
+	box-shadow: 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12), 0 11px 15px -7px rgba(0,0,0,.2);
+
+	/*right: 3rem;*/
+	/*left: 20em;*/
+	/*bottom: 1rem;*/
 }
