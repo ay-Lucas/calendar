@@ -9,10 +9,11 @@ body {
 	/*background-color: rgba(27, 27, 27, .1);*/
 	background-color: #202124;
 	/*background-image: linear-gradient(to right, #000000 40%, #434343);*/
-);
 	position: absolute;
 }
+
 .container {
+	/*position: absolute;*/
 	margin: 4em;
 }
 
@@ -77,6 +78,7 @@ h1 {
 }
 
 #calendar {
+	overflow: visible;
 	border-top-style: ridge;
 	border-top-width: 1px;
 	border-top-color: black;
@@ -94,6 +96,7 @@ h1 {
 }
 
 #calendar div {
+	/*overflow: hidden;*/
 	position: relative;
 	border-width: 0;
 	border-bottom-width: 2px;
@@ -101,6 +104,8 @@ h1 {
 	text-align: center;
 	font-size: clamp(1rem, 1.25rem, 1.5rem);
 	color: #e6edf3;
+	min-height: 0;
+	min-width: 0;
 }
 
 
@@ -130,18 +135,14 @@ h1 {
 }
 
 .task {
-	/*display: flex;*/
-	/*position: absolute;*/
-	display: flow;
-	position: relative;
-	height: clamp(0em, 1.25em, 2em);
-	width: 80%;
-	margin: auto;
-	/*width: 10em;*/
-	/*left: 25px;*/
+	display: flex;
+	min-height: 0;
+	min-width: 0;
+	height: clamp(.25em, 25%, 1em);
+	width: 95%;
+	margin: 0 auto;
 	border-width: 0;
 	border-radius: .5em;
-	/*border: none;*/
 	border-style: none;
 	background-image: linear-gradient(
 			109.6deg,
@@ -149,21 +150,62 @@ h1 {
 			rgba(110, 123, 251, 1) 91.1%
 	);
 }
-#task-menu{
-	/*display: inline-flex;*/
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	display: flex;
-	/*-webkit-box-align: center;*/
-	align-items: center;
-	width: 20rem;
-	height: 20rem;
-	background-color: white;
-	box-shadow: 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12), 0 11px 15px -7px rgba(0,0,0,.2);
 
-	/*right: 3rem;*/
-	/*left: 20em;*/
-	/*bottom: 1rem;*/
+.task {
+	display: block;
+	overflow: clip;
+}
+
+.task p {
+	color: black;
+	font-size: 1rem;
+	text-align: center;
+}
+
+#task-menu span {
+	color: #555;
+	position: absolute;
+	/*line-height: 40px;*/
+	font-size: 30px;
+	/*left: 1;*/
+	right: 0;
+	top: 0;
+	bottom: 0;
+	height: 30px;
+	width: 30px;
+	border-radius: 40%;
+	cursor: pointer;
+}
+
+#task-menu span:hover {
+	background: #edeef0;
+}
+
+#task-menu {
+	display: inline-flex;
+	position: absolute;
+	--mouse-x: 0;
+	--mouse-y: 0;
+	margin: 2dvh auto;
+	padding: 10px;
+	z-index: 1000;
+	width: 10rem;
+	height: 10rem;
+	background-color: black;
+	min-height: 0;
+	min-width: 0;
+	/*margin: 0 auto 5rem clamp(0dvw, 13dvw, 16dvw);*/
+	/*cursor: move;*/
+	/*overflow: hidden;*/
+	/*transform: translateX(min(var(--mouse-x), calc(100vw - 100%))) translateY(min(var(--mouse-y), calc(100vh - 100%)));*/
+	box-shadow: 0 24px 38px 3px rgba(0, 0, 0, .14), 0 9px 46px 8px rgba(0, 0, 0, .12), 0 11px 15px -7px rgba(0, 0, 0, .2);
+}
+
+#task-input {
+	position: relative;
+	width: 90%;
+	height: 17px;
+	margin: auto;
+
+	/*width: 80%;*/
 }
