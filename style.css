@@ -95,9 +95,6 @@ h1 {
 
 #calendar div {
 	/*overflow-: hidden;*/
-	/*background-color: rgba(107, 208, 255, .);*/
-	/*overflow: hidden;*/
-	/*background-color: rgb(16, 16, 16, .3);*/
 	position: relative;
 	border-width: 0;
 	border-bottom-width: 2px;
@@ -107,8 +104,7 @@ h1 {
 	font-size: clamp(.5rem, 1rem, 1.5rem);
 	min-height: 0;
 	min-width: 0;
-	/*overflow: visible;*/
-	/*overflow-x: hidden;*/
+	user-select: none;
 }
 
 
@@ -149,13 +145,11 @@ h1 {
 }
 
 .task {
-	position: absolute;
 	display: block;
+	position: absolute;
 	min-height: 0;
 	min-width: 0;
-	/*height: clamp(.0em, 1em, 2em);*/
 	height: 20%;
-	/*float: initial;*/
 	width: 95%;
 	margin: 5px auto;
 	cursor: pointer;
@@ -171,13 +165,9 @@ h1 {
 
 #calendar div .task {
 	color: black;
-	/*padding-top: 5px;*/
-	/*margin-top:*/
-	/*padding-top: 5px;*/
 	font-size: 12px;
 	text-align: center;
-	/*justify-content: */
-	/*overflow-wrap: break-word;*/
+	/*cursor: move;*/
 	overflow-x: hidden;
 }
 
@@ -185,9 +175,7 @@ h1 {
 #task-menu span {
 	color: #555;
 	position: absolute;
-	/*line-height: 40px;*/
 	font-size: 30px;
-	/*left: 0;*/
 	right: 0px;
 	top: 0px;
 	bottom: 0;
@@ -215,10 +203,6 @@ h1 {
 	min-height: 0;
 	min-width: 0;
 	border-radius: 1rem;
-	/*margin: 0 auto 5rem clamp(0dvw, 13dvw, 16dvw);*/
-	/*cursor: move;*/
-	/*overflow: hidden;*/
-	/*transform: translateX(min(var(--mouse-x), calc(100vw - 100%))) translateY(min(var(--mouse-y), calc(100vh - 100%)));*/
 	box-shadow: 0 24px 38px 3px rgba(0, 0, 0, .14), 0 9px 46px 8px rgba(0, 0, 0, .12), 0 11px 15px -7px rgba(0, 0, 0, .2);
 }
 
@@ -230,7 +214,6 @@ h1 {
 	width: 90%;
 	height: 17px;
 	margin: auto;
-	/*width: 80%;*/
 }
 
 #menu-button {
@@ -245,9 +228,5 @@ h1 {
 }
 
 #delete-icon {
-	/*background-image: url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0");*/
-	/*font-family: "Material Icons Outlined", serif;*/
-	/*content: "e872";*/
-	/*right: 10px; !important;*/
 	color: darkred !important;
 }

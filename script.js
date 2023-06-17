@@ -4,19 +4,19 @@ const calendar = document.getElementById("calendar");
 const nextMonthButton = document.getElementById("next");
 const previousMonthButton = document.getElementById("previous");
 const deleteIcon = document.createElement("span");
+// const input = document.getElementById("task-input");
+let currentTask = "";
 deleteIcon.setAttribute("id", "delete-icon");
 deleteIcon.setAttribute("class", "material-icons-outlined");
 deleteIcon.innerHTML = "delete";
-// const menu = document.getElementById("task-menu");
-// const grid = document.querySelector(".grid");
-// const container = document.querySelector(".container");
-// const span = document.getElementById("exit");
-
-// const input = document.getElementById("task-input");
-// const menu = document.getElementById("task-menu");
+const input = document.createElement("input");
+input.setAttribute("id", "task-input");
+input.setAttribute("type", "text");
 let month = 0;
 let date = new Date();
 loadCalendar(date);
+
+// move();
 
 function loadCalendar(date) {
     let month = date.toLocaleString("default", { month: "long" });
@@ -80,14 +80,13 @@ previousMonthButton.addEventListener("click", function (event) {
 });
 
 //clicks on other days are ignored when the task menu is opened
-
 calendar.addEventListener("click", function (event) {
     const menu = document.getElementById("task-menu");
     const day = document.getElementById(event.target.id);
     if (menu !== null || event.target.id === "exit") {
         return;
     } else if (event.target.className === "task") {
-    // editTask(event);
+    // move(document.getElementById(event.target.id));
         let day = document.getElementById(event.target.parentElement.id);
         console.log(event, day, event.target.id);
         taskMenu(event, day, event.target.id);
@@ -104,39 +103,56 @@ calendar.addEventListener("click", function (event) {
         task.setAttribute("class", "task");
         task.setAttribute("id", event.target.id + "-task-" + (taskLength + 1));
         day.appendChild(task);
-        taskMenu(event, day, task);
+        currentTask = task;
+        taskMenu(event, day);
     }
 });
+let offsetX, offsetY;
+const move = (e) => {
+    currentTask.style.left = `${e.clientX - offsetX}px`;
+    currentTask.style.top = `${e.clientY - offsetY}px`;
+    // currentTask.style.top = `${e.cl}`
 
-function taskMenu(event, day, task) {
+    offsetX = e.clientX - currentTask.offsetLeft;
+    offsetY = e.clientY - currentTask.offsetTop;
+
+    document.addEventListener("mousemove", move);
+    currentTask.addEventListener("mousedown", (e) => {});
+
+    document.addEventListener("mouseup", () => {
+        document.removeEventListener("mousemove", move);
+    });
+};
+
+function taskMenu(event, day) {
+    input.value = "";
     let menu = document.createElement("div");
-    let input = document.createElement("input");
+    // let input = document.createElement("input");
     let span = document.createElement("span");
     let button = document.createElement("button");
-
     button.setAttribute("id", "menu-button");
     menu.setAttribute("id", "task-menu");
     span.setAttribute("id", "exit");
     span.innerHTML = "\u00d7";
     menu.appendChild(span);
 
-    input.setAttribute("id", "task-input");
-    input.setAttribute("type", "text");
-    input.setAttribute("onkeyup", "getInput()");
+    // input.setAttribute("onkeyup", "getInput()");
 
     button.append(deleteIcon);
     day.append(menu);
     menu.append(input);
     menu.append(button);
     if (event.target.className === "task") {
-        let currentTask = document.getElementById(event.target.id);
+        currentTask = document.getElementById(event.target.id);
         console.log(currentTask.textContent);
         input.value = currentTask.textContent;
     }
+
+    // getInput(task);
     span.addEventListener("click", function (event) {
         menu.remove();
-        if (task.textContent === "") {
-            task.remove();
+        if (currentTask.textContent === "") {
+            currentTask.remove();
         }
     });
     button.addEventListener("click", function (e) {
@@ -147,7 +163,7 @@ function taskMenu(event, day, task) {
         }
         console.log(e.target.parentElement.parentElement.parentElement.id);
         try {
-            task.remove();
+            currentTask.remove();
         } catch (exc) {
             console.log("dumb bug");
         }
@@ -155,33 +171,17 @@ function taskMenu(event, day, task) {
     });
 }
 
-function getInput() {
-    const input = document.getElementById("task-input");
-    input.addEventListener("keyup", function (event) {
-        if (event.code === "Enter" && input.value !== "") {
-            const taskCount =
-        event.target.parentElement.parentElement.children.length - 1;
-            // console.log(event.target.parentElement.previousElementSibling.id);
-            console.log(taskCount);
-            let task = document.getElementById(
-                event.target.parentElement.previousElementSibling.id
-            );
-            console.log(
-                event.target.parentElement.previousElementSibling.id + " " + taskCount
-            );
-            const menu = document.getElementById("task-menu");
-            const p = document.createElement("p");
-            p.innerHTML = input.value;
-            task.appendChild(p);
-            task.innerHTML = input.value;
-            console.log(p);
-            console.log(event.target);
-            input.value = "";
-            document.getElementById("task-menu").remove();
-            // if()
-        }
-    });
-}
+input.addEventListener("keyup", function (event) {
+    if (event.code === "Enter" && input.value !== "") {
+    // console.log(event.target.parentElement.previousElementSibling.id);
+        console.log(currentTask);
+        currentTask.innerHTML = input.value;
+        // currentTask.value = "";
+        input.value = "";
+        // if (document.getElementById("task-menu") !== null) {
+        document.getElementById("task-menu").remove();
+    // return input.value;
+    }
+});
 
-//TODO --> BUG : message editing and deletion selects the last created task
 //TODO --> BUG : calendar div task y-axis overflow
