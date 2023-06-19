@@ -1,11 +1,9 @@
-// const calendar = document.createElement("calendar");
 const NUM_OF_BOXES = 42;
 const calendar = document.getElementById("calendar");
 const nextMonthButton = document.getElementById("next");
 const previousMonthButton = document.getElementById("previous");
 const deleteIcon = document.createElement("span");
-// const input = document.getElementById("task-input");
-let currentTask = "";
+let currentTask = document.getElementsByClassName("task");
 deleteIcon.setAttribute("id", "delete-icon");
 deleteIcon.setAttribute("class", "material-icons-outlined");
 deleteIcon.innerHTML = "delete";
@@ -15,8 +13,10 @@ input.setAttribute("type", "text");
 let month = 0;
 let date = new Date();
 loadCalendar(date);
-
-// move();
+let isDragging = false;
+let startPosX = 0;
+let startPosY = 0;
+let newDay;
 
 function loadCalendar(date) {
     let month = date.toLocaleString("default", { month: "long" });
@@ -41,7 +41,7 @@ function loadCalendar(date) {
     for (let i = firstDay; i > 0; i--) {
         let paddedSquare = document.createElement("div");
         paddedSquareCount++;
-        paddedSquare.setAttribute("class", "padded-square-previous");
+        paddedSquare.setAttribute("class", "last-month");
         paddedSquare.setAttribute("id", "pad" + paddedSquareCount.toString());
 
         paddedSquare.innerHTML = lastMonthDayCount - i + 1;
@@ -58,7 +58,7 @@ function loadCalendar(date) {
         for (let i = 0; i < NUM_OF_BOXES - (firstDay + thisMonthDayCount); i++) {
             paddedSquareCount++;
             let paddedSquare = document.createElement("div");
-            paddedSquare.setAttribute("class", "padded-square-next");
+            paddedSquare.setAttribute("class", "next-month");
             paddedSquare.setAttribute("id", "pad" + paddedSquareCount.toString());
             paddedSquare.innerHTML = i + 1;
             calendar.appendChild(paddedSquare);
@@ -79,50 +79,88 @@ previousMonthButton.addEventListener("click", function (event) {
     loadCalendar(previousMonth);
 });
 
+function startDrag(event) {
+    startPosX = event.clientX;
+    startPosY = event.clientY;
+    calendar.addEventListener("mousemove", moveTask);
+    calendar.addEventListener("mouseover", getNewDay);
+    isDragging = true;
+}
+
+function moveTask(event) {
+    if (!isDragging) {
+        return;
+    }
+    const distanceX = event.clientX - startPosX;
+    const distanceY = event.clientY - startPosY;
+    currentTask.style.transform = `translate(${distanceX}px, ${distanceY}px)`;
+    console.log(event.target.parentElement.id);
+}
+
+function endDrag(event) {
+    if (!isDragging) {
+        return;
+    }
+    calendar.removeEventListener("mousemove", moveTask);
+    setTimeout(() => {
+        if (typeof newDay !== "undefined" && currentTask.parentElement !== newDay) {
+            document.getElementById(newDay).append(currentTask);
+        }
+        calendar.removeEventListener("mouseover", getNewDay);
+    }, 5);
+    // calendar.removeEventListener("mousemove", moveTask);
+    currentTask.style.transform = "translate(0px, 0px)";
+    console.log(event.target.id);
+    // calendar.removeEventListener()
+}
+
+function getNewDay(event) {
+    try {
+        newDay = event.target.id.toString();
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 //clicks on other days are ignored when the task menu is opened
-calendar.addEventListener("click", function (event) {
+const handleMouseDown = (event) => {
     const menu = document.getElementById("task-menu");
     const day = document.getElementById(event.target.id);
+    const taskLength = event.target.children.length;
     if (menu !== null || event.target.id === "exit") {
         return;
     } else if (event.target.className === "task") {
-    // move(document.getElementById(event.target.id));
+    (document.getElementById(event.target.id));
         let day = document.getElementById(event.target.parentElement.id);
+        // currentTask = task;
+        console.log(currentTask.style.transform.toString());
         console.log(event, day, event.target.id);
         taskMenu(event, day, event.target.id);
         return;
     } else if (
         event.target.className === "this-month" ||
-    event.target.className === "padded-square-previous" ||
-    event.target.className === "padded-square-next"
+    event.target.className === "last-month" ||
+    event.target.className === "next-month"
     ) {
-    // if(event.target.className === "this-month")
-    //creates task
-        const taskLength = event.target.children.length;
+        console.log("event target is a month");
+        // if(event.target.className === "this-month")
+        //creates task
         let task = document.createElement("div");
         task.setAttribute("class", "task");
         task.setAttribute("id", event.target.id + "-task-" + (taskLength + 1));
         day.appendChild(task);
         currentTask = task;
-        taskMenu(event, day);
+        currentTask.addEventListener("mousedown", startDrag);
+        currentTask.addEventListener("mouseup", endDrag);
+        console.log(currentTask.style.transform.toString());
+        // console.log(getComputedStyle(currentTask, "transform"));
+        if (currentTask.style) {
+            taskMenu(event, day);
+        }
     }
-});
-let offsetX, offsetY;
-const move = (e) => {
-    currentTask.style.left = `${e.clientX - offsetX}px`;
-    currentTask.style.top = `${e.clientY - offsetY}px`;
-    // currentTask.style.top = `${e.cl}`
-
-    offsetX = e.clientX - currentTask.offsetLeft;
-    offsetY = e.clientY - currentTask.offsetTop;
-
-    document.addEventListener("mousemove", move);
-    currentTask.addEventListener("mousedown", (e) => {});
-
-    document.addEventListener("mouseup", () => {
-        document.removeEventListener("mousemove", move);
-    });
+    console.log("mouseup fired");
 };
+calendar.addEventListener("mousedown", handleMouseDown);
 
 function taskMenu(event, day) {
     input.value = "";
@@ -147,7 +185,6 @@ function taskMenu(event, day) {
         console.log(currentTask.textContent);
         input.value = currentTask.textContent;
     }
-
     // getInput(task);
     span.addEventListener("click", function (event) {
         menu.remove();
@@ -183,5 +220,3 @@ input.addEventListener("keyup", function (event) {
     // return input.value;
     }
 });
-
-//TODO --> BUG : calendar div task y-axis overflow
